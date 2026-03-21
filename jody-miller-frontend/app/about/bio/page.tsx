@@ -16,17 +16,14 @@ export default function BioPage() {
           About
         </p>
       </FadeUp>
-
       <FadeUp delay={0.08} className="mt-4">
         <AnimatedLine />
       </FadeUp>
-
       <FadeUp delay={0.15} className="mt-6">
         <h1 className="font-serif text-5xl italic leading-tight text-[var(--heading)] sm:text-6xl">
           Jody Greenstone Miller
         </h1>
       </FadeUp>
-
       {/* Photo + Bio */}
       <RevealOnScroll className="mt-16">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-[220px_1fr]">
@@ -69,23 +66,23 @@ export default function BioPage() {
           <div className="space-y-5 font-sans text-base font-light leading-relaxed text-[var(--body)]">
             <p>
               Jody Greenstone Miller is the Co-Founder and former CEO of
-              Business Talent Group (BTG), the leading marketplace for
-              high-end, on-demand executive talent. She built BTG over nearly
-              two decades into a company that has matched thousands of
-              independent executives with Fortune 500 companies, private equity
-              firms, and high-growth startups worldwide.
+              Business Talent Group (BTG), the leading marketplace for high-end,
+              on-demand executive talent. She built BTG over nearly two decades
+              into a company that has matched thousands of independent
+              executives with Fortune 500 companies, private equity firms, and
+              high-growth startups worldwide.
             </p>
             <p>
-              Before founding BTG, Jody held senior executive roles in both
-              the private and public sectors. She served as Chief of Staff at
-              the Office of the Vice President during the Clinton
-              Administration, was a senior executive at Hollinger International,
-              and held positions across media, law, and policy.
+              Before founding BTG, Jody held senior executive roles in both the
+              private and public sectors. She served as Chief of Staff at the
+              Office of the Vice President during the Clinton Administration,
+              was a senior executive at Hollinger International, and held
+              positions across media, law, and policy.
             </p>
             <p>
               Jody is a recognized thought leader on the future of work,
-              independent talent, entrepreneurship, and women in leadership.
-              She has written extensively for Harvard Business Review, The Wall
+              independent talent, entrepreneurship, and women in leadership. She
+              has written extensively for Harvard Business Review, The Wall
               Street Journal, Forbes, Fortune, and The New York Times, and has
               appeared on CNN, CNBC, and Bloomberg.
             </p>
@@ -98,7 +95,6 @@ export default function BioPage() {
           </div>
         </div>
       </RevealOnScroll>
-
       {/* Pull quote */}
       <RevealOnScroll className="my-16">
         <div className="border-y border-[var(--border)] py-10 text-center">
@@ -112,7 +108,7 @@ export default function BioPage() {
           </p>
         </div>
       </RevealOnScroll>
-
+      sasadf
       {/* Continue link */}
       <RevealOnScroll className="mt-4 border-t border-[var(--border)] pt-8">
         <p className="font-sans text-xs font-light uppercase tracking-[0.2em] text-[var(--muted-text)]">
