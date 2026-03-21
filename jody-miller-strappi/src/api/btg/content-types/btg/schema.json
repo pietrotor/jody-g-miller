@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "btg_pages",
+  "info": {
+    "singularName": "btg",
+    "pluralName": "btg-pages",
+    "displayName": "BTG",
+    "description": "Business Talent Group page content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "mission": {
+      "type": "richtext"
+    },
+    "history": {
+      "type": "richtext"
+    },
+    "accomplishments": {
+      "type": "richtext"
+    },
+    "investorsAndBoard": {
+      "type": "richtext"
+    }
+  }
+}

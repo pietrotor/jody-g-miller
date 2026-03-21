@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "speaking_pages",
+  "info": {
+    "singularName": "speaking",
+    "pluralName": "speaking-pages",
+    "displayName": "Speaking",
+    "description": "Speaking and advisory page content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "topics": {
+      "type": "richtext"
+    },
+    "advisoryAreas": {
+      "type": "richtext"
+    },
+    "contactIntro": {
+      "type": "text"
+    }
+  }
+}

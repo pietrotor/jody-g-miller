@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "the_details",
+  "info": {
+    "singularName": "the-details",
+    "pluralName": "the-details-pages",
+    "displayName": "The Details",
+    "description": "Experience narrative sections for the About page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "entrepreneurial": {
+      "type": "richtext"
+    },
+    "executive": {
+      "type": "richtext"
+    },
+    "boards": {
+      "type": "richtext"
+    },
+    "government": {
+      "type": "richtext"
+    },
+    "nonprofit": {
+      "type": "richtext"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "archive_items",
+  "info": {
+    "singularName": "archive-item",
+    "pluralName": "archive-items",
+    "displayName": "Archive Item",
+    "description": "Articles, videos, and podcasts in Jody's archive"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["Article", "Video", "Podcast"],
+      "required": true
+    },
+    "year": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "externalLink": {
+      "type": "string"
+    },
+    "pdf": {
+      "allowedTypes": ["files"],
+      "type": "media",
+      "multiple": false
+    },
+    "coverImage": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false
+    },
+    "publishedDate": {
+      "type": "date"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "archiveItems"
+    }
+  }
+}
