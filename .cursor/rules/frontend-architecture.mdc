@@ -1,0 +1,103 @@
+---
+description: Frontend architecture and code standards
+alwaysApply: true
+---
+
+# Frontend Architecture
+
+## Component Scope — Where to Place Components
+
+Before creating a component, determine its scope:
+
+- **`src/components/common/`** — Reusable UI components with no feature-specific logic. Can be used anywhere in the app (e.g. `MoneyInput`, `DatePicker`, `Avatar`). If a component could reasonably be used in more than one feature, it belongs here.
+- **`src/components/<FeatureName>/components/`** — Sub-components owned by a single feature. They depend on feature-specific types, context, or logic and should never be imported outside that feature.
+
+When in doubt, ask: *"Could another feature use this without modification?"* If yes → `common/`. If no → keep it inside the feature.
+
+## Folder Structure
+
+Every component follows a self-contained structure:
+
+```
+ComponentName/
+├── components/
+├── constants/
+├── hooks/
+│   └── useHookName/
+│       └── index.ts
+├── stories/
+├── tests/
+│   ├── __snapshots__/
+│   ├── mocks/
+│   │   └── index.ts
+│   └── index.test.tsx
+├── types/
+├── utils/
+│   └── utilName/
+│       └── index.ts
+└── index.tsx
+```
+
+## Utils
+
+- Each util lives in its own folder: `utils/utilName/index.ts`
+- Any hardcoded value that could change (locale strings, regex patterns, magic strings, numeric thresholds, API paths, etc.) must live in the nearest `constants/index.ts` file, never inlined in the implementation
+- Utils must be pure functions with no side effects
+
+## File Naming — STRICT
+
+- All files are named `index.tsx` (components) or `index.ts` (non-React)
+- Never use the feature name as the filename: `BikeCard.tsx` ❌ → `BikeCard/index.tsx` ✅
+- Imports use the folder path: `from '@/utils/debounce'` ✅, never `from '@/utils/debounce/index'` ❌
+
+## Types
+
+- Types prefixed with `T` → `TBikeCard`, `TUserData`
+- Interfaces prefixed with `I` → `IBikeCardProps`, `IApiResponse`
+- No `any`
+- No `@ts-ignore` / `@ts-expect-error` without written justification
+- Functions must have explicit return types
+- **All** type definitions must live in a `types/index.ts` file alongside the implementation — defining types inside the implementation file is forbidden
+
+## Components
+
+- One component = one responsibility (SRP)
+- **Each file must export exactly one component. Defining more than one component in the same file is forbidden** — extract any secondary component to its own folder under `components/`
+- **Render functions (functions that return JSX) are components and must be extracted** — a function like `const renderSkeleton = () => <Box>...</Box>` defined inside a component file is forbidden; extract it as a proper component in its own `components/ComponentName/index.tsx`
+- **JSX assigned to a variable inside a component is also a component** — a pattern like `const banner = <Box>...</Box>` used as a UI section must be extracted to its own component file, not defined inline
+- Keep components small and reusable — if a component can be split into sub-components, it should be
+- **All state and event handlers must live in a custom hook** — the component file must only contain the JSX return and the hook invocation. No `useState`, `useEffect`, `useCallback`, `useRef`, or handler functions defined directly in the component body
+- Helper functions must never be defined inside a component file — every helper belongs in its own `utils/helperName/index.ts` file and imported explicitly
+- Props destructured at the top of the component
+- No complex logic in JSX — extract to functions or variables
+- No over-engineering: only what the task requires
+- No unrequested features
+- No refactoring of code unrelated to the task
+
+## Documentation
+
+- All utility functions must have JSDoc with `@param`, `@returns` and a description
+- All custom hooks must have JSDoc
+- **No inline comments of any kind inside component or hook files** — the code must be self-explanatory. The only exception is JSDoc blocks on utils and hooks
+
+## Code Quality
+
+- No `console.log` or `console.*` — use the project logger (`src/logger/`)
+- No unused imports
+- No commented-out code (dead code)
+- No `_` prefix variables as compatibility hacks
+- No magic numbers, hardcoded strings, or inline configuration — use named constants in the nearest `constants/index.ts`
+
+## Styles
+
+- No inline styles without justification
+- Mobile-first design
+- Accessibility: ARIA labels and semantic HTML
+
+## Security & Performance
+
+- Validate only at system boundaries (user input, external APIs)
+- No XSS, SQL injection, or command injection vulnerabilities
+- No sensitive data exposed on the client
+- Cleanup side-effect hooks to prevent memory leaks
+- Use `useMemo`/`useCallback` only when a real re-render problem has been measured

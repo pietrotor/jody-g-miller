@@ -1,0 +1,39 @@
+---
+description: Workflow for analyzing features and bugs before implementing
+alwaysApply: true
+---
+
+# Feature & Bug Implementation Workflow
+
+Before writing any code for a feature request or bug fix, always follow this process:
+
+## 1. Analyze First
+
+- Read and understand the affected files and surrounding context
+- Identify the root cause (for bugs) or the integration point (for features)
+- Map out all files and components that need to change
+
+## 2. Ask Before Acting
+
+If anything is unclear — behavior, business logic, edge cases, or intent — ask the user before proceeding.
+
+**Ask about:**
+- Expected behavior that isn't obvious from the code
+- Domain logic that could have multiple valid interpretations
+- Whether a change should be isolated or affect related flows
+
+**Example:**
+> "I see the `handleSubmit` sends both grantor fields, but the API only accepts one when `filing_jointly` is false. Should I conditionally exclude the second grantor, or is this intentional?"
+
+## 3. If Neither Party Knows
+
+If the user is also unsure, proceed with the implementation **following the existing patterns and domain logic** already present in the codebase. Do not invent behavior — infer it from how similar flows are handled nearby.
+
+## 4. Summarize Before Implementing
+
+Before writing code, briefly state:
+- What the problem/feature is
+- Where the change will be made
+- Any assumption you're making due to ambiguity
+
+This keeps the user informed and allows correction before work begins.
