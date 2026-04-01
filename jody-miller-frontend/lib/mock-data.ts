@@ -184,7 +184,8 @@ export const archiveItems: ArchiveItem[] = [
   {
     id: "a8",
     type: "article",
-    title: "Scaling with Purpose: How Not to Lose Your Company While Growing It",
+    title:
+      "Scaling with Purpose: How Not to Lose Your Company While Growing It",
     description:
       "Growth is the goal, but most founders fail to preserve the culture and clarity that made their company worth scaling in the first place.",
     publication: "Fast Company",

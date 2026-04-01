@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { FadeUp, RevealOnScroll, AnimatedLine } from "@/components/ui/motion";
+import {
+  FadeUp,
+  AnimatedLine,
+  RevealOnScroll,
+  ScrollStaggerList,
+  ScrollStaggerItem,
+} from "@/components/ui/motion";
+import CountUp from "@/components/ui/CountUp";
 
 export const metadata: Metadata = {
   title: "Bio",
@@ -8,119 +16,285 @@ export const metadata: Metadata = {
     "Jody Greenstone Miller — Co-Founder & former CEO of Business Talent Group, thought leader on the future of work and entrepreneurship.",
 };
 
+const STATS = [
+  { end: 18,  start: 0,   suffix: "+", label: "Years at BTG",            duration: 2.2 },
+  { end: 200, start: 120, suffix: "+", label: "Published Articles",       duration: 2.5 },
+  { end: 50,  start: 0,   suffix: "+", label: "Board & Advisory Roles",   duration: 2.0 },
+];
+
+const EXPERIENCE = [
+  {
+    id: "btg",
+    org: "Business Talent Group (BTG)",
+    role: "Co-Founder & CEO",
+    period: "2007 — 2022",
+    type: "Entrepreneurial",
+    description:
+      "Built the leading marketplace for high-end, on-demand executive talent. Under Jody's leadership, BTG completed thousands of engagements for Fortune 500 companies, private equity firms, and high-growth startups — and pioneered the concept of the independent executive.",
+  },
+  {
+    id: "americast",
+    org: "Americast",
+    role: "Acting President & COO",
+    period: "2001 — 2007",
+    type: "Executive",
+    description:
+      "Led day-to-day operations of a digital video venture formed by major U.S. media companies, managing both the strategic and operational dimensions of the business.",
+  },
+  {
+    id: "maverick",
+    org: "Maverick Records",
+    role: "Executive Vice President",
+    period: "1999 — 2001",
+    type: "Executive",
+    description:
+      "Senior executive at the artist-founded record label, working across business development, strategy, and operations during a transformative period in the music industry.",
+  },
+  {
+    id: "whitehouse",
+    org: "The White House",
+    role: "Chief of Staff, Office of the Vice President",
+    period: "1993 — 1997",
+    type: "Government",
+    description:
+      "Served during the Clinton Administration, working directly with senior White House leadership on domestic and foreign policy initiatives. A formative experience in how consequential decisions are made under pressure.",
+  },
+  {
+    id: "urbaninstitute",
+    org: "The Urban Institute",
+    role: "Board Member",
+    period: "Current",
+    type: "Non-Profit & Civic",
+    description:
+      "Providing strategic guidance to one of the country's leading economic and social policy research organizations, focused on equity, housing, and workforce development.",
+  },
+  {
+    id: "hrw",
+    org: "Human Rights Watch",
+    role: "Advisory Contributor",
+    period: "Current",
+    type: "Non-Profit & Civic",
+    description:
+      "Active contributor to one of the world's leading independent organizations dedicated to defending and protecting human rights.",
+  },
+];
+
 export default function BioPage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-      <FadeUp>
-        <p className="font-sans text-xs font-light uppercase tracking-[0.22em] text-[var(--muted-text)]">
-          About
-        </p>
-      </FadeUp>
-      <FadeUp delay={0.08} className="mt-4">
-        <AnimatedLine />
-      </FadeUp>
-      <FadeUp delay={0.15} className="mt-6">
-        <h1 className="font-serif text-5xl italic leading-tight text-[var(--heading)] sm:text-6xl">
-          Jody Greenstone Miller
-        </h1>
-      </FadeUp>
-      {/* Photo + Bio */}
-      <RevealOnScroll className="mt-16">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-[220px_1fr]">
-          {/* Photo */}
-          <div className="flex flex-col gap-4">
-            <div className="aspect-[3/4] w-full border border-[var(--border)] bg-[var(--muted)] flex items-end justify-center pb-4">
-              <span className="font-sans text-xs font-light text-[var(--muted-text)]">
-                Photo
-              </span>
-            </div>
-            <div className="space-y-2.5">
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block cursor-pointer font-sans text-xs font-light text-[var(--accent)] transition-opacity duration-200 hover:opacity-60"
-              >
-                Download Press Bio (PDF) →
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block cursor-pointer font-sans text-xs font-light text-[var(--muted-text)] transition-colors duration-200 hover:text-[var(--heading)]"
-              >
-                LinkedIn →
-              </a>
-              <Link
-                href="https://www.ameliagmiller.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block cursor-pointer font-sans text-xs font-light text-[var(--muted-text)] transition-colors duration-200 hover:text-[var(--heading)]"
-              >
-                Amelia Miller →
-              </Link>
-            </div>
+    <>
+      {/* ── Hero ─────────────────────────────────────────────────────── */}
+      <div className="mx-auto max-w-[1440px] px-6 pb-0 pt-32 md:px-12 md:pt-40">
+        {/* Breadcrumb */}
+        <FadeUp>
+          <div className="flex items-center gap-4">
+            <span className="ui-label text-accent-sage">Current</span>
+            <span className="text-accent-sage/30">·</span>
+            <span className="ui-label text-accent-sage">About</span>
+            <span className="text-accent-sage/30">·</span>
+            <span className="ui-label text-heading">Jody Miller</span>
           </div>
+        </FadeUp>
 
-          {/* Bio text */}
-          <div className="space-y-5 font-sans text-base font-light leading-relaxed text-[var(--body)]">
-            <p>
-              Jody Greenstone Miller is the Co-Founder and former CEO of
-              Business Talent Group (BTG), the leading marketplace for high-end,
-              on-demand executive talent. She built BTG over nearly two decades
-              into a company that has matched thousands of independent
-              executives with Fortune 500 companies, private equity firms, and
-              high-growth startups worldwide.
-            </p>
-            <p>
-              Before founding BTG, Jody held senior executive roles in both the
-              private and public sectors. She served as Chief of Staff at the
-              Office of the Vice President during the Clinton Administration,
-              was a senior executive at Hollinger International, and held
-              positions across media, law, and policy.
-            </p>
-            <p>
-              Jody is a recognized thought leader on the future of work,
-              independent talent, entrepreneurship, and women in leadership. She
-              has written extensively for Harvard Business Review, The Wall
-              Street Journal, Forbes, Fortune, and The New York Times, and has
-              appeared on CNN, CNBC, and Bloomberg.
-            </p>
-            <p>
-              She serves on corporate and nonprofit boards and is a partner at
-              Vail Leadership Institute. Jody received her B.A. from Brown
-              University and her J.D. from Northwestern University School of
-              Law. She lives in New York with her family.
-            </p>
+        <FadeUp delay={0.08} className="mt-6">
+          <AnimatedLine />
+        </FadeUp>
+
+        <FadeUp delay={0.12}>
+          <h1 className="mt-6 font-serif text-5xl leading-[1.0] tracking-tight text-heading sm:text-6xl md:text-[clamp(3.5rem,6vw,5rem)]">
+            Jody Greenstone Miller
+          </h1>
+        </FadeUp>
+      </div>
+
+      {/* ── Two-column portrait + bio ──────────────────────────────── */}
+      <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-12 md:px-12 md:pb-28 md:pt-16">
+        <RevealOnScroll>
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-[280px_1fr] md:gap-16 lg:grid-cols-[320px_1fr] lg:gap-20">
+
+            {/* Left: portrait + links */}
+            <div className="flex flex-col gap-8">
+              <div className="relative aspect-[3/4] w-full overflow-hidden border border-accent-sage/10 bg-surface-container">
+                <Image
+                  src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=720&q=85"
+                  alt="Jody Greenstone Miller"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 320px"
+                  className="object-cover grayscale-[10%]"
+                  priority
+                />
+              </div>
+
+              {/* Links */}
+              <div className="space-y-3">
+                <a
+                  href="#"
+                  className="group flex items-center justify-between border-b border-border/20 pb-3 font-sans text-xs font-light text-accent transition-opacity hover:opacity-60"
+                >
+                  <span>Download Press Bio (PDF)</span>
+                  <span>→</span>
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between border-b border-border/20 pb-3 font-sans text-xs font-light text-accent-sage transition-colors hover:text-heading"
+                >
+                  <span>LinkedIn</span>
+                  <span>→</span>
+                </a>
+                <a
+                  href="https://www.ameliagmiller.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between border-b border-border/20 pb-3 font-sans text-xs font-light text-accent-sage transition-colors hover:text-heading"
+                >
+                  <span>Amelia Miller</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Right: quote + bio */}
+            <div>
+              <p className="font-serif text-3xl italic leading-snug text-heading md:text-4xl">
+                Redefining the way the world works.
+              </p>
+
+              <div className="mt-8 space-y-5 font-sans text-base font-light leading-relaxed text-body md:text-lg">
+                <p>
+                  Jody Greenstone Miller is the Co-Founder and former CEO of
+                  Business Talent Group (BTG), the leading marketplace for
+                  high-end, on-demand executive talent. She built BTG over
+                  nearly two decades into a company that has placed thousands of
+                  independent executives with Fortune 500 companies, private
+                  equity firms, and high-growth startups worldwide.
+                </p>
+                <p>
+                  Her career spans across the private, public, and non-profit
+                  sectors, reflecting a deep commitment to institutional
+                  excellence, enterprise, and human dignity. Jody's insights on
+                  our changing landscape of labor have been featured on major
+                  business publications, the Wall Street Journal, and Fortune,
+                  positioning her at the forefront of discussions regarding the
+                  future of work and organizational agility.
+                </p>
+                <p>
+                  Today, she continues to shape frontier ideas and advise
+                  high-growth stage companies while advocating for a more
+                  flexible model of work post-industrial environment.
+                </p>
+              </div>
+
+              {/* Inline links row */}
+              <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-border/20 pt-8">
+                <Link
+                  href="/writing-media/selected-pieces"
+                  className="ui-label text-accent transition-opacity hover:opacity-60"
+                >
+                  Selected Writing →
+                </Link>
+                <Link
+                  href="/speaking"
+                  className="ui-label text-accent-sage transition-colors hover:text-heading"
+                >
+                  Speaking Topics →
+                </Link>
+                <Link
+                  href="/contact"
+                  className="ui-label text-accent-sage transition-colors hover:text-heading"
+                >
+                  Get in Touch →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </RevealOnScroll>
+      </div>
+
+      {/* ── Stats strip ──────────────────────────────────────────────── */}
+      <RevealOnScroll>
+        <div className="border-y border-accent-sage/10 bg-surface-container">
+          <div className="mx-auto grid max-w-[1440px] grid-cols-3 px-6 md:px-12">
+            {STATS.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`py-10 text-center ${i > 0 ? "border-l border-accent-sage/10" : ""}`}
+              >
+                <p className="font-serif text-4xl text-heading md:text-5xl">
+                  <CountUp
+                    end={stat.end}
+                    start={stat.start}
+                    suffix={stat.suffix}
+                    duration={stat.duration}
+                  />
+                </p>
+                <p className="mt-2 font-sans text-xs font-light uppercase tracking-[0.18em] text-accent-sage">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </RevealOnScroll>
-      {/* Pull quote */}
-      <RevealOnScroll className="my-16">
-        <div className="border-y border-[var(--border)] py-10 text-center">
-          <p className="font-serif text-2xl italic leading-snug text-[var(--heading)] sm:text-3xl">
-            &ldquo;I built BTG because I believed the future of work would be
-            more flexible, more independent — and I wanted to be the one
-            building it.&rdquo;
-          </p>
-          <p className="mt-4 font-sans text-xs font-light uppercase tracking-[0.2em] text-[var(--muted-text)]">
-            Jody Greenstone Miller
-          </p>
-        </div>
-      </RevealOnScroll>
-      sasadf
-      {/* Continue link */}
-      <RevealOnScroll className="mt-4 border-t border-[var(--border)] pt-8">
-        <p className="font-sans text-xs font-light uppercase tracking-[0.2em] text-[var(--muted-text)]">
-          Continue
-        </p>
-        <Link
-          href="/about/the-details"
-          className="mt-3 inline-block cursor-pointer font-serif text-2xl italic text-[var(--heading)] transition-opacity duration-200 hover:opacity-60"
-        >
-          The Details →
-        </Link>
-      </RevealOnScroll>
-    </div>
+
+      {/* ── Professional Experience ───────────────────────────────────── */}
+      <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-12 md:py-28">
+        {/* Section heading */}
+        <RevealOnScroll>
+          <div className="mb-16 md:mb-20">
+            <span className="ui-label text-accent">
+              Professional Experience
+            </span>
+            <h2 className="mt-4 font-serif text-4xl italic leading-tight text-heading md:text-5xl">
+              A Legacy of Leadership
+            </h2>
+          </div>
+        </RevealOnScroll>
+
+        {/* Experience list */}
+        <ScrollStaggerList className="divide-y divide-border/20">
+          {EXPERIENCE.map((item) => (
+            <ScrollStaggerItem key={item.id}>
+              <div className="grid grid-cols-1 gap-4 py-10 md:grid-cols-[1fr_2fr] md:gap-12">
+                {/* Left meta */}
+                <div>
+                  <h3 className="font-serif text-xl leading-snug text-heading md:text-2xl">
+                    {item.org}
+                  </h3>
+                  <p className="mt-2 font-sans text-xs font-light text-accent">
+                    {item.role}
+                  </p>
+                  <p className="mt-1 font-sans text-xs font-light text-accent-sage">
+                    {item.period}
+                  </p>
+                </div>
+
+                {/* Right: type + description */}
+                <div>
+                  <span className="ui-label text-accent-sage">{item.type}</span>
+                  <p className="mt-3 font-sans text-base font-light leading-relaxed text-body">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </ScrollStaggerItem>
+          ))}
+        </ScrollStaggerList>
+
+        {/* Education note */}
+        <RevealOnScroll className="mt-12 border-t border-border/20 pt-10">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_2fr] md:gap-12">
+            <div>
+              <h3 className="font-serif text-xl text-heading">Education</h3>
+            </div>
+            <div className="space-y-1 font-sans text-base font-light text-body">
+              <p>B.A., Brown University</p>
+              <p>J.D., Northwestern University School of Law</p>
+            </div>
+          </div>
+        </RevealOnScroll>
+      </div>
+
+    </>
   );
 }

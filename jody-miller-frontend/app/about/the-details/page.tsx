@@ -26,7 +26,7 @@ function Section({
 
 export default function TheDetailsPage() {
   return (
-    <div className="mx-auto max-w-2xl px-6 py-20">
+    <div className="mx-auto max-w-2xl px-6 pb-20 pt-32 md:pt-40">
       <p className="font-sans text-xs font-light uppercase tracking-widest text-[var(--muted-text)]">
         About
       </p>
@@ -94,11 +94,11 @@ export default function TheDetailsPage() {
 
         <Section title="Boards">
           <p>
-            Jody serves and has served on the boards of several public,
-            private, and nonprofit organizations. She brings to these roles a
-            perspective shaped by decades of building, operating, and advising
-            businesses — combined with a belief that boards are most valuable
-            when they bring genuine operational expertise, not just oversight.
+            Jody serves and has served on the boards of several public, private,
+            and nonprofit organizations. She brings to these roles a perspective
+            shaped by decades of building, operating, and advising businesses —
+            combined with a belief that boards are most valuable when they bring
+            genuine operational expertise, not just oversight.
           </p>
           <p>
             She is a partner at the Vail Leadership Institute and has been a

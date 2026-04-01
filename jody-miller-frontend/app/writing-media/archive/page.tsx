@@ -4,7 +4,13 @@ import { archiveItems } from "@/lib/mock-data";
 import type { ContentType } from "@/lib/types";
 import ArchiveCard from "@/components/archive/ArchiveCard";
 import FilterBar from "@/components/archive/FilterBar";
-import { FadeUp, AnimatedLine, RevealOnScroll, ScrollStaggerList, ScrollStaggerItem } from "@/components/ui/motion";
+import {
+  FadeUp,
+  AnimatedLine,
+  RevealOnScroll,
+  ScrollStaggerList,
+  ScrollStaggerItem,
+} from "@/components/ui/motion";
 
 export const metadata: Metadata = {
   title: "The Archive",
@@ -38,12 +44,12 @@ export default async function TheArchivePage({
   const sorted = filtered.sort(
     (a, b) =>
       b.year - a.year ||
-      new Date(b.date).getTime() - new Date(a.date).getTime()
+      new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
   const categories = [...new Set(archiveItems.map((i) => i.category))].sort();
   const years = [...new Set(archiveItems.map((i) => i.year))].sort(
-    (a, b) => b - a
+    (a, b) => b - a,
   );
 
   const counts = {
@@ -71,8 +77,8 @@ export default async function TheArchivePage({
       </FadeUp>
       <FadeUp delay={0.22} className="mt-4">
         <p className="font-sans text-sm font-light text-[var(--muted-text)]">
-          {counts.total} items — {counts.articles} articles,{" "}
-          {counts.videos} videos, {counts.podcasts} podcasts
+          {counts.total} items — {counts.articles} articles, {counts.videos}{" "}
+          videos, {counts.podcasts} podcasts
         </p>
       </FadeUp>
 

@@ -3,8 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "BTG — Investors & Board",
-  description:
-    "The investors and board members of Business Talent Group.",
+  description: "The investors and board members of Business Talent Group.",
 };
 
 const investors = [
@@ -35,11 +34,11 @@ const boardMembers = [
     title: "Co-Founder",
   },
   {
-    name: "Board Member Placeholder",
+    name: "Board Member Placeholder A",
     title: "Managing Partner, Placeholder Ventures",
   },
   {
-    name: "Board Member Placeholder",
+    name: "Board Member Placeholder B",
     title: "Former COO, Placeholder Corporation",
   },
   {
@@ -80,8 +79,8 @@ export default function BTGInvestorsPage() {
         Board of Directors
       </h2>
       <div className="mt-5 divide-y divide-[var(--border)]">
-        {boardMembers.map(({ name, title }) => (
-          <div key={name} className="flex items-baseline justify-between py-4">
+        {boardMembers.map(({ name, title }, i) => (
+          <div key={i} className="flex items-baseline justify-between py-4">
             <p className="font-sans text-base font-light text-[var(--heading)]">
               {name}
             </p>

@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FadeUp, AnimatedLine, RevealOnScroll, ScrollStaggerList, ScrollStaggerItem } from "@/components/ui/motion";
+import {
+  FadeUp,
+  AnimatedLine,
+  RevealOnScroll,
+  ScrollStaggerList,
+  ScrollStaggerItem,
+} from "@/components/ui/motion";
 
 export const metadata: Metadata = {
   title: "Speaking & Advisory",
@@ -69,8 +75,8 @@ export default function SpeakingPage() {
       <FadeUp delay={0.22} className="mt-5 max-w-xl">
         <p className="font-sans text-base font-light leading-relaxed text-[var(--body)]">
           Jody speaks at conferences, corporate events, universities, and
-          leadership programs. She advises boards, executive teams, and
-          founders navigating periods of significant change.
+          leadership programs. She advises boards, executive teams, and founders
+          navigating periods of significant change.
         </p>
       </FadeUp>
 

@@ -28,11 +28,11 @@ export default function BTGMissionPage() {
       <RevealOnScroll className="mt-14">
         <div className="space-y-5 font-sans text-base font-light leading-relaxed text-[var(--body)]">
           <p>
-            Business Talent Group was founded on a deceptively simple idea:
-            the most capable executives don&apos;t all work inside companies.
-            Many of the best — the ones with the deepest expertise, the
-            sharpest strategic judgment, the hardest-won pattern recognition —
-            have chosen independence.
+            Business Talent Group was founded on a deceptively simple idea: the
+            most capable executives don&apos;t all work inside companies. Many
+            of the best — the ones with the deepest expertise, the sharpest
+            strategic judgment, the hardest-won pattern recognition — have
+            chosen independence.
           </p>
           <p>
             BTG exists to make that talent accessible. We match independent

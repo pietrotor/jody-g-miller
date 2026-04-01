@@ -54,7 +54,8 @@ export function getCtaLabel(item: ArchiveItem): string {
 }
 
 export function getItemUrl(item: ArchiveItem): string {
-  if (item.type === "video") return `https://youtube.com/watch?v=${item.youtubeId}`;
+  if (item.type === "video")
+    return `https://youtube.com/watch?v=${item.youtubeId}`;
   if (item.type === "podcast") return item.embedUrl ?? "#";
   return item.externalUrl ?? item.pdfUrl ?? "#";
 }

@@ -3,6 +3,7 @@ import { EB_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import NewsletterSection from "@/components/home/NewsletterSection";
 
 const ebGaramond = EB_Garamond({
   variable: "--font-eb-garamond",
@@ -51,6 +52,7 @@ export default function RootLayout({
       <body className={`${ebGaramond.variable} ${inter.variable} antialiased`}>
         <Header />
         <main>{children}</main>
+        <NewsletterSection />
         <Footer />
       </body>
     </html>
