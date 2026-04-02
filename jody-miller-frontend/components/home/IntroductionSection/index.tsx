@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { RevealOnScroll } from "@/components/ui/motion";
 
@@ -34,24 +33,15 @@ export default function IntroductionSection() {
         {/* Right video — col-start-7 col-span-6 */}
         <div className="md:col-start-7 md:col-span-6">
           <RevealOnScroll delay={0.15}>
-            <div className="group relative aspect-video cursor-pointer overflow-hidden border border-accent-sage/10 bg-surface-container">
-              <Image
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=85"
-                alt="Jody Greenstone Miller portrait in soft light"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover grayscale-[20%] transition-transform duration-1000 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-heading/10 transition-colors duration-300 group-hover:bg-transparent">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/40 bg-white/10 backdrop-blur-md transition-transform duration-300 group-hover:scale-110 md:h-20 md:w-20">
-                  <svg
-                    className="ml-1 h-6 w-6 text-white md:h-8 md:w-8"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
+            <div className="group relative flex aspect-video items-center justify-center overflow-hidden border border-accent-sage/10 bg-[#d6d3cc]">
+              <div className="flex flex-col items-center gap-3 px-6 text-center">
+                <svg className="h-10 w-10 text-[#8a877f]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+                <p className="font-sans text-xs font-light leading-relaxed text-[#6b6860]">
+                  Featured video — Jody speaking or interview clip<br />
+                  (embed or hosted video asset)
+                </p>
               </div>
             </div>
 

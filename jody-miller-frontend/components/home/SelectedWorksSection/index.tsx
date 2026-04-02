@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { RevealOnScroll } from "@/components/ui/motion";
 import { useSelectedWorks } from "./hooks/useSelectedWorks";
@@ -12,8 +11,7 @@ interface Work {
   description: string;
   cta: string;
   href: string;
-  image: string;
-  imageAlt: string;
+  imagePlaceholder: string;
 }
 
 const WORKS: Work[] = [
@@ -25,9 +23,7 @@ const WORKS: Work[] = [
       "An examination of how leadership structures must adapt to the velocity of decentralized decision-making.",
     cta: "Read Full Text",
     href: "/writing-media/selected-pieces",
-    image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
-    imageAlt: "Modern office environment with warm sunlight",
+    imagePlaceholder: "Editorial photo — modern workspace or executive setting",
   },
   {
     id: "sw2",
@@ -37,9 +33,7 @@ const WORKS: Work[] = [
       "Rediscovering the unique value of human intuition in a world of algorithmic efficiency.",
     cta: "Listen to Conversation",
     href: "/writing-media/media-about",
-    image:
-      "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "Warm abstract light patterns",
+    imagePlaceholder: "Podcast recording session or abstract audio visual",
   },
   {
     id: "sw3",
@@ -49,9 +43,7 @@ const WORKS: Work[] = [
       "Redefining the social contract through the lens of radical workplace flexibility.",
     cta: "Read Essay",
     href: "/writing-media/selected-pieces",
-    image:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "Detail of luxury stationery and pen",
+    imagePlaceholder: "Editorial photo — corporate or workplace abstraction",
   },
   {
     id: "sw4",
@@ -61,9 +53,7 @@ const WORKS: Work[] = [
       "Despite record-breaking strides, women-led businesses still face systemic barriers to capital.",
     cta: "Read Essay",
     href: "/writing-media/selected-pieces",
-    image:
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
-    imageAlt: "Woman entrepreneur speaking",
+    imagePlaceholder: "Photo — women in leadership or conference setting",
   },
 ];
 
@@ -112,15 +102,15 @@ export default function SelectedWorksSection() {
               href={work.href}
               className="group flex w-[80vw] flex-none snap-start flex-col md:w-[480px]"
             >
-              {/* Fixed-height image — same across all cards */}
-              <div className="relative h-64 w-full flex-none overflow-hidden border border-accent-sage/5 bg-surface-container md:h-72">
-                <Image
-                  src={work.image}
-                  alt={work.imageAlt}
-                  fill
-                  sizes="(max-width: 768px) 80vw, 480px"
-                  className="object-cover grayscale-[10%] transition-transform duration-1000 group-hover:scale-105"
-                />
+              <div className="flex h-64 w-full flex-none items-center justify-center overflow-hidden border border-accent-sage/5 bg-[#d6d3cc] md:h-72">
+                <div className="flex flex-col items-center gap-3 px-6 text-center">
+                  <svg className="h-8 w-8 text-[#8a877f]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z" />
+                  </svg>
+                  <p className="font-sans text-[11px] font-light leading-relaxed text-[#6b6860]">
+                    {work.imagePlaceholder}
+                  </p>
+                </div>
               </div>
 
               {/* Text */}

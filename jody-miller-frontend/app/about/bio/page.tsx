@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   FadeUp,
@@ -113,15 +112,16 @@ export default function BioPage() {
 
             {/* Left: portrait + links */}
             <div className="flex flex-col gap-8">
-              <div className="relative aspect-[3/4] w-full overflow-hidden border border-accent-sage/10 bg-surface-container">
-                <Image
-                  src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=720&q=85"
-                  alt="Jody Greenstone Miller"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 320px"
-                  className="object-cover grayscale-[10%]"
-                  priority
-                />
+              <div className="flex aspect-[3/4] w-full items-center justify-center overflow-hidden border border-accent-sage/10 bg-[#d6d3cc]">
+                <div className="flex flex-col items-center gap-3 px-6 text-center">
+                  <svg className="h-10 w-10 text-[#8a877f]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                  </svg>
+                  <p className="font-sans text-xs font-light leading-relaxed text-[#6b6860]">
+                    Jody Greenstone Miller — red dress portrait<br />
+                    (primary bio photo, 3:4 aspect ratio)
+                  </p>
+                </div>
               </div>
 
               {/* Links */}
@@ -134,7 +134,7 @@ export default function BioPage() {
                   <span>→</span>
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/jodygreenstonemiller/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between border-b border-border/20 pb-3 font-sans text-xs font-light text-accent-sage transition-colors hover:text-heading"

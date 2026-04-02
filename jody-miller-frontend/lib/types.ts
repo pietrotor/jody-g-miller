@@ -38,6 +38,7 @@ export interface SelectedPiece {
   publication: string;
   year: number;
   personalIntro: string;
+  imagePlaceholder: string;
   pdfUrl?: string;
   externalUrl?: string;
 }

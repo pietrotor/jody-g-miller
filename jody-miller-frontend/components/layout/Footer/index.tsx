@@ -45,7 +45,7 @@ export default function Footer() {
               Contact
             </Link>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/jodygreenstonemiller/"
               target="_blank"
               rel="noopener noreferrer"
               className="ui-label text-accent-sage transition-colors hover:text-accent"

@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  FadeUp,
+  AnimatedLine,
+  RevealOnScroll,
+  ScrollStaggerList,
+  ScrollStaggerItem,
+} from "@/components/ui/motion";
 
 export const metadata: Metadata = {
   title: "BTG — History",
@@ -47,51 +54,60 @@ const timeline = [
 
 export default function BTGHistoryPage() {
   return (
-    <div className="mx-auto max-w-2xl px-6 py-20">
-      <p className="font-sans text-xs font-light uppercase tracking-widest text-[var(--muted-text)]">
-        Business Talent Group
-      </p>
-      <h1 className="mt-3 font-serif text-4xl text-[var(--heading)] sm:text-5xl">
-        History
-      </h1>
+    <div className="mx-auto max-w-2xl px-6 py-20 sm:py-28">
+      <FadeUp>
+        <p className="font-sans text-xs font-light uppercase tracking-[0.22em] text-[var(--muted-text)]">
+          Business Talent Group
+        </p>
+      </FadeUp>
+      <FadeUp delay={0.08} className="mt-4">
+        <AnimatedLine />
+      </FadeUp>
+      <FadeUp delay={0.15} className="mt-6">
+        <h1 className="font-serif text-5xl italic leading-tight text-[var(--heading)] sm:text-6xl">
+          History
+        </h1>
+      </FadeUp>
 
-      <hr className="my-10 border-[var(--border)]" />
+      <RevealOnScroll className="mt-14">
+        <p className="font-sans text-base font-light leading-relaxed text-[var(--body)]">
+          BTG was born out of a conviction that the model of executive employment
+          — the permanent hire, the long-term contract, the ladder — was
+          increasingly misaligned with how the most talented people wanted to work
+          and how the best organizations needed to access expertise. What follows
+          is the story of building something that didn&apos;t exist yet.
+        </p>
+      </RevealOnScroll>
 
-      <p className="font-sans text-base font-light leading-relaxed text-[var(--body)]">
-        BTG was born out of a conviction that the model of executive employment
-        — the permanent hire, the long-term contract, the ladder — was
-        increasingly misaligned with how the most talented people wanted to work
-        and how the best organizations needed to access expertise. What follows
-        is the story of building something that didn&apos;t exist yet.
-      </p>
-
-      <div className="mt-12 space-y-10">
+      <ScrollStaggerList className="mt-12 space-y-10">
         {timeline.map(({ year, event }) => (
-          <div key={year} className="flex gap-8">
-            <span className="w-12 shrink-0 font-serif text-base italic text-[var(--accent)]">
-              {year}
-            </span>
-            <p className="font-sans text-base font-light leading-relaxed text-[var(--body)]">
-              {event}
-            </p>
-          </div>
+          <ScrollStaggerItem key={year}>
+            <div className="flex gap-8">
+              <span className="w-12 shrink-0 font-serif text-base italic text-[var(--accent)]">
+                {year}
+              </span>
+              <p className="font-sans text-base font-light leading-relaxed text-[var(--body)]">
+                {event}
+              </p>
+            </div>
+          </ScrollStaggerItem>
         ))}
-      </div>
+      </ScrollStaggerList>
 
-      <div className="mt-14 flex flex-wrap gap-6 border-t border-[var(--border)] pt-8">
+      <RevealOnScroll className="mt-14 flex flex-wrap gap-6 border-t border-[var(--border)] pt-8">
         <Link
           href="/btg/mission"
-          className="font-sans text-xs font-light text-[var(--muted-text)] transition-colors hover:text-[var(--heading)]"
+          className="font-sans text-xs font-light text-[var(--muted-text)] transition-colors duration-200 hover:text-[var(--heading)]"
         >
           ← Mission
         </Link>
         <Link
           href="/btg/accomplishments"
-          className="font-sans text-xs font-light text-[var(--accent)] transition-opacity hover:opacity-70"
+          className="font-sans text-xs font-light text-[var(--accent)] transition-opacity duration-200 hover:opacity-60"
         >
-          Accomplishments & Recognition →
+          Accomplishments &amp; Recognition →
         </Link>
-      </div>
+      </RevealOnScroll>
     </div>
   );
 }

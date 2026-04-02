@@ -307,6 +307,7 @@ export const selectedPieces: SelectedPiece[] = [
     year: 2025,
     personalIntro:
       "This piece captures what I've been seeing at BTG for over a decade — the quiet exodus of exceptional talent from the corporate ladder toward independence. I wrote this because I wanted to put data behind what our own experience had already confirmed.",
+    imagePlaceholder: "HBR cover or article header image — executive independence theme",
     externalUrl: "#",
   },
   {
@@ -316,6 +317,7 @@ export const selectedPieces: SelectedPiece[] = [
     year: 2023,
     personalIntro:
       "I've been making this argument in boardrooms for years. When HBR gave me the space to make it in full, I tried to write something that would actually challenge how executives think about the structure of their workforce — not just the perks they offer.",
+    imagePlaceholder: "HBR article cover — workforce structure or corporate abstraction",
     externalUrl: "#",
     pdfUrl: "#",
   },
@@ -326,6 +328,7 @@ export const selectedPieces: SelectedPiece[] = [
     year: 2024,
     personalIntro:
       "The numbers in this piece frustrated and motivated me in equal measure. The gap is real, it is measurable, and the excuses for it have long since expired. I hope this piece makes it harder to look away.",
+    imagePlaceholder: "Forbes feature image — women in leadership or funding theme",
     externalUrl: "#",
   },
   {
@@ -335,6 +338,7 @@ export const selectedPieces: SelectedPiece[] = [
     year: 2021,
     personalIntro:
       "When the Great Resignation conversation started dominating every leadership forum, I felt like something essential was being missed. This is my attempt to say what I actually think was happening — and what leaders got wrong in their response.",
+    imagePlaceholder: "HBR article cover — workplace or resignation narrative",
     externalUrl: "#",
     pdfUrl: "#",
   },
@@ -345,6 +349,7 @@ export const selectedPieces: SelectedPiece[] = [
     year: 2024,
     personalIntro:
       "Writing this piece was genuinely uncomfortable. Talking about success is easy. Talking honestly about the decisions I got wrong, the hires I shouldn't have made, the pivots I made too late — that required a different kind of honesty. I'm glad I did it.",
+    imagePlaceholder: "Inc. Magazine feature — entrepreneurship or reflective portrait",
     externalUrl: "#",
   },
   {
@@ -354,6 +359,7 @@ export const selectedPieces: SelectedPiece[] = [
     year: 2020,
     personalIntro:
       "I was watching leaders navigate 2020 in real time — many of them BTG clients. The contrast between those who rose and those who faltered was striking and instructive. I wrote this while the wound was still fresh.",
+    imagePlaceholder: "Fortune article cover — crisis leadership or CEO portrait",
     externalUrl: "#",
     pdfUrl: "#",
   },
