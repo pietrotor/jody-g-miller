@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_advisory_areas",
+  "info": {
+    "displayName": "Advisory Area",
+    "description": "A single advisory area"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

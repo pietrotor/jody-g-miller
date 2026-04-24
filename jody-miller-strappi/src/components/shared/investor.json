@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_investors",
+  "info": {
+    "displayName": "Investor",
+    "description": "An investor with name and description"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

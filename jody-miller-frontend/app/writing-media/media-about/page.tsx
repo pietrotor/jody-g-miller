@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { archiveItems } from "@/lib/mock-data";
+import { fetchArchiveItems } from "@/lib/strapi";
+import { archiveItems as fallbackItems } from "@/lib/mock-data";
 import VideoEmbed from "@/components/media/VideoEmbed";
 import PodcastEmbed from "@/components/media/PodcastEmbed";
 import {
@@ -17,12 +18,13 @@ export const metadata: Metadata = {
     "Video appearances, podcast features, and media coverage of Jody Greenstone Miller and Business Talent Group.",
 };
 
-const mediaItems = archiveItems
-  .filter((item) => item.type === "video" || item.type === "podcast")
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  .slice(0, 8);
+export default async function MediaAboutPage() {
+  const archiveItems = await fetchArchiveItems().catch(() => fallbackItems);
 
-export default function MediaAboutPage() {
+  const mediaItems = archiveItems
+    .filter((item) => item.type === "video" || item.type === "podcast")
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 8);
   return (
     <div className="mx-auto max-w-2xl px-6 py-20 sm:py-28">
       <FadeUp>
@@ -54,7 +56,7 @@ export default function MediaAboutPage() {
         {mediaItems.map((item) => (
           <ScrollStaggerItem key={item.id}>
             <article>
-              {item.type === "video" && (
+              {item.type === "video" && item.youtubeId && (
                 <VideoEmbed youtubeId={item.youtubeId} title={item.title} />
               )}
               {item.type === "podcast" && item.embedUrl && (
@@ -66,7 +68,7 @@ export default function MediaAboutPage() {
                   {item.title}
                 </h2>
                 <p className="mt-1 font-sans text-xs font-light text-[var(--muted-text)]">
-                  {item.type === "podcast" ? item.show : item.publication}
+                  {item.source}
                   <span className="mx-2 text-[var(--border)]">·</span>
                   {item.year}
                   {item.type === "podcast" && item.duration && (

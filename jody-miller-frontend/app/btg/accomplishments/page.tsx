@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { fetchBtgAccomplishments } from "@/lib/strapi";
 import {
   FadeUp,
   AnimatedLine,
@@ -14,43 +15,9 @@ export const metadata: Metadata = {
     "Business Talent Group's milestones, recognition, and impact across two decades of redefining executive talent.",
 };
 
-const recognitions = [
-  {
-    label: "Inc. 5000",
-    description:
-      "Recognized as one of the fastest-growing private companies in America — multiple years.",
-  },
-  {
-    label: "Forbes",
-    description:
-      "Featured as a company changing the future of work and reshaping how executive talent is accessed and deployed.",
-  },
-  {
-    label: "Fast Company",
-    description:
-      "Cited among the most innovative companies in the talent and HR category.",
-  },
-  {
-    label: "Harvard Business Review",
-    description:
-      "BTG research on independent executive talent cited in multiple HBR articles and case studies on the future of work.",
-  },
-  {
-    label: "The Wall Street Journal",
-    description:
-      "Profiled as the defining company in the emerging on-demand executive marketplace.",
-  },
-];
+export default async function BTGAccomplishmentsPage() {
+  const { milestones, recognitions } = await fetchBtgAccomplishments();
 
-const milestones = [
-  "Over 5,000 independent executives in the BTG talent network",
-  "Thousands of engagements completed across Fortune 500 companies, PE firms, and high-growth businesses",
-  "Clients in financial services, healthcare, technology, consumer, media, and the public sector",
-  "Operations across North America, Europe, and Asia",
-  "Pioneered the language and frameworks now used across the industry to describe independent executive work",
-];
-
-export default function BTGAccomplishmentsPage() {
   return (
     <div className="mx-auto max-w-2xl px-6 py-20 sm:py-28">
       <FadeUp>
@@ -72,10 +39,10 @@ export default function BTGAccomplishmentsPage() {
       </RevealOnScroll>
       <ScrollStaggerList className="mt-5 space-y-3">
         {milestones.map((m) => (
-          <ScrollStaggerItem key={m}>
+          <ScrollStaggerItem key={m.text}>
             <li className="flex gap-4 font-sans text-base font-light leading-relaxed text-[var(--body)]">
               <span className="mt-2 h-px w-4 shrink-0 self-start bg-[var(--accent)]" />
-              {m}
+              {m.text}
             </li>
           </ScrollStaggerItem>
         ))}

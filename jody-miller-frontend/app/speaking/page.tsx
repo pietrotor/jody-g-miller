@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { fetchSpeaking } from "@/lib/strapi";
 import {
   FadeUp,
   AnimatedLine,
@@ -14,49 +15,9 @@ export const metadata: Metadata = {
     "Jody Greenstone Miller as a keynote speaker and strategic advisor — topics, areas of focus, and contact for engagements.",
 };
 
-const speakingTopics = [
-  {
-    title: "The Future of Work",
-    description:
-      "The structural transformation underway in how talent is organized, deployed, and compensated — and what it means for leaders, companies, and the broader economy.",
-  },
-  {
-    title: "Building and Scaling Companies",
-    description:
-      "What it actually takes to build something from nothing and grow it without losing what made it valuable. Drawing on her experience building BTG and advising hundreds of founders.",
-  },
-  {
-    title: "Women in Leadership",
-    description:
-      "An unflinching look at the structural and cultural barriers that persist in organizations — and what companies, boards, and individual leaders can do differently.",
-  },
-  {
-    title: "Independent Talent and the On-Demand Economy",
-    description:
-      "How the rise of the independent executive is reshaping the competitive landscape — and why companies that fail to build flexible talent pipelines will find themselves outcompeted.",
-  },
-  {
-    title: "Leadership Under Uncertainty",
-    description:
-      "Frameworks for making consequential decisions without complete information — and the qualities that distinguish leaders who navigate ambiguity well from those who are paralyzed by it.",
-  },
-  {
-    title: "Entrepreneurship and the Long Game",
-    description:
-      "What a twenty-plus year entrepreneurial career teaches about resilience, reinvention, and the patience required to build something that lasts.",
-  },
-];
+export default async function SpeakingPage() {
+  const { topics, advisoryAreas, contactIntro } = await fetchSpeaking();
 
-const advisoryAreas = [
-  "Board governance and composition",
-  "Talent strategy and the future of the workforce",
-  "Executive team building and organizational design",
-  "Growth strategy for marketplace businesses",
-  "Women in leadership and equity in the workplace",
-  "Entrepreneurial strategy for founder-led companies",
-];
-
-export default function SpeakingPage() {
   return (
     <div className="mx-auto max-w-2xl px-6 py-20 sm:py-28">
       <FadeUp>
@@ -87,7 +48,7 @@ export default function SpeakingPage() {
       </RevealOnScroll>
 
       <ScrollStaggerList className="mt-8 space-y-10">
-        {speakingTopics.map(({ title, description }) => (
+        {topics.map(({ title, description }) => (
           <ScrollStaggerItem key={title}>
             <h3 className="font-serif text-xl italic text-[var(--heading)]">
               {title}
@@ -129,8 +90,7 @@ export default function SpeakingPage() {
           Get in touch
         </h2>
         <p className="mt-3 font-sans text-base font-light leading-relaxed text-[var(--body)]">
-          For speaking inquiries, advisory conversations, or board
-          opportunities, please reach out directly.
+          {contactIntro}
         </p>
         <Link
           href="/contact"

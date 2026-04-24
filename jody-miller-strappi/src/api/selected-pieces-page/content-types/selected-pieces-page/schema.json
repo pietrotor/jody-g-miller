@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "selected_pieces_pages",
+  "info": {
+    "singularName": "selected-pieces-page",
+    "pluralName": "selected-pieces-pages",
+    "displayName": "Selected Pieces",
+    "description": "Curated selection of archive items — drag and drop to reorder"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pieces": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.selected-piece-entry"
+    }
+  }
+}

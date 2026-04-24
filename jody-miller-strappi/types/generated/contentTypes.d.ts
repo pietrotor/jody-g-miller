@@ -447,8 +447,10 @@ export interface ApiArchiveItemArchiveItem extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.RichText;
-    externalLink: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    duration: Schema.Attribute.String;
+    embedUrl: Schema.Attribute.String;
+    externalUrl: Schema.Attribute.String;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -458,14 +460,16 @@ export interface ApiArchiveItemArchiveItem extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     pdf: Schema.Attribute.Media<'files'>;
     publishedAt: Schema.Attribute.DateTime;
-    publishedDate: Schema.Attribute.Date;
+    publishedDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    source: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
-    type: Schema.Attribute.Enumeration<['Article', 'Video', 'Podcast']> &
+    type: Schema.Attribute.Enumeration<['article', 'video', 'podcast']> &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    year: Schema.Attribute.Integer;
+    year: Schema.Attribute.Integer & Schema.Attribute.Required;
+    youtubeId: Schema.Attribute.String;
   };
 }
 
@@ -486,7 +490,9 @@ export interface ApiBioBio extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     downloadablePdf: Schema.Attribute.Media<'files'>;
-    familyLink: Schema.Attribute.String;
+    familyLinks: Schema.Attribute.Component<'shared.family-link', true>;
+    headline: Schema.Attribute.String;
+    linkedinUrl: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::bio.bio'> &
       Schema.Attribute.Private;
@@ -510,17 +516,22 @@ export interface ApiBtgBtg extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    accomplishments: Schema.Attribute.RichText;
+    boardMembers: Schema.Attribute.Component<'shared.board-member', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    history: Schema.Attribute.RichText;
-    investorsAndBoard: Schema.Attribute.RichText;
+    historyIntro: Schema.Attribute.Text;
+    investors: Schema.Attribute.Component<'shared.investor', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::btg.btg'> &
       Schema.Attribute.Private;
-    mission: Schema.Attribute.RichText;
+    milestones: Schema.Attribute.Component<'shared.milestone', true>;
+    missionClosing: Schema.Attribute.Text;
+    missionIntro: Schema.Attribute.Text;
+    missionQuote: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    recognitions: Schema.Attribute.Component<'shared.recognition', true>;
+    timelineEvents: Schema.Attribute.Component<'shared.timeline-event', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -563,6 +574,66 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPressLogoPressLogo extends Struct.CollectionTypeSchema {
+  collectionName: 'press_logos';
+  info: {
+    description: 'Media outlets where Jody has been featured';
+    displayName: 'Press Logo';
+    pluralName: 'press-logos';
+    singularName: 'press-logo';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::press-logo.press-logo'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSelectedPiecesPageSelectedPiecesPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'selected_pieces_pages';
+  info: {
+    description: 'Curated selection of archive items \u2014 drag and drop to reorder';
+    displayName: 'Selected Pieces';
+    pluralName: 'selected-pieces-pages';
+    singularName: 'selected-pieces-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::selected-pieces-page.selected-pieces-page'
+    > &
+      Schema.Attribute.Private;
+    pieces: Schema.Attribute.Component<'shared.selected-piece-entry', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSpeakingSpeaking extends Struct.SingleTypeSchema {
   collectionName: 'speaking_pages';
   info: {
@@ -575,7 +646,7 @@ export interface ApiSpeakingSpeaking extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    advisoryAreas: Schema.Attribute.RichText;
+    advisoryAreas: Schema.Attribute.Component<'shared.advisory-area', true>;
     contactIntro: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -587,7 +658,7 @@ export interface ApiSpeakingSpeaking extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    topics: Schema.Attribute.RichText;
+    topics: Schema.Attribute.Component<'shared.speaking-topic', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1142,6 +1213,8 @@ declare module '@strapi/strapi' {
       'api::bio.bio': ApiBioBio;
       'api::btg.btg': ApiBtgBtg;
       'api::category.category': ApiCategoryCategory;
+      'api::press-logo.press-logo': ApiPressLogoPressLogo;
+      'api::selected-pieces-page.selected-pieces-page': ApiSelectedPiecesPageSelectedPiecesPage;
       'api::speaking.speaking': ApiSpeakingSpeaking;
       'api::the-details.the-details': ApiTheDetailsTheDetails;
       'plugin::content-releases.release': PluginContentReleasesRelease;

@@ -12,6 +12,9 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "headline": {
+      "type": "string"
+    },
     "biography": {
       "type": "richtext"
     },
@@ -25,7 +28,12 @@
       "type": "media",
       "multiple": false
     },
-    "familyLink": {
+    "familyLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.family-link"
+    },
+    "linkedinUrl": {
       "type": "string"
     }
   }

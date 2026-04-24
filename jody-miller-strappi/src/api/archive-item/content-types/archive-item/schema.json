@@ -18,20 +18,33 @@
     },
     "type": {
       "type": "enumeration",
-      "enum": ["Article", "Video", "Podcast"],
+      "enum": ["article", "video", "podcast"],
       "required": true
     },
     "year": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "description": {
-      "type": "richtext"
+      "type": "text"
+    },
+    "source": {
+      "type": "string"
     },
     "featured": {
       "type": "boolean",
       "default": false
     },
-    "externalLink": {
+    "externalUrl": {
+      "type": "string"
+    },
+    "youtubeId": {
+      "type": "string"
+    },
+    "embedUrl": {
+      "type": "string"
+    },
+    "duration": {
       "type": "string"
     },
     "pdf": {
@@ -45,7 +58,8 @@
       "multiple": false
     },
     "publishedDate": {
-      "type": "date"
+      "type": "date",
+      "required": true
     },
     "category": {
       "type": "relation",

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_shared_selected_piece_entries",
+  "info": {
+    "displayName": "Selected Piece",
+    "description": "A curated archive item with Jody's personal introduction"
+  },
+  "options": {},
+  "attributes": {
+    "archiveItem": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::archive-item.archive-item"
+    },
+    "personalIntro": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

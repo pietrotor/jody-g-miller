@@ -13,10 +13,14 @@
   "pluginOptions": {},
   "attributes": {
     "topics": {
-      "type": "richtext"
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.speaking-topic"
     },
     "advisoryAreas": {
-      "type": "richtext"
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.advisory-area"
     },
     "contactIntro": {
       "type": "text"

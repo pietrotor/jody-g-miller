@@ -12,17 +12,42 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "mission": {
-      "type": "richtext"
+    "missionIntro": {
+      "type": "text"
     },
-    "history": {
-      "type": "richtext"
+    "missionQuote": {
+      "type": "string"
     },
-    "accomplishments": {
-      "type": "richtext"
+    "missionClosing": {
+      "type": "text"
     },
-    "investorsAndBoard": {
-      "type": "richtext"
+    "historyIntro": {
+      "type": "text"
+    },
+    "timelineEvents": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.timeline-event"
+    },
+    "milestones": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.milestone"
+    },
+    "recognitions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.recognition"
+    },
+    "investors": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.investor"
+    },
+    "boardMembers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.board-member"
     }
   }
 }

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_family_links",
+  "info": {
+    "displayName": "Family Link",
+    "description": "A labeled external link (for family member sites)"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

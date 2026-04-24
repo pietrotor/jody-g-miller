@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_milestones",
+  "info": {
+    "displayName": "Milestone",
+    "description": "A single milestone or achievement"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

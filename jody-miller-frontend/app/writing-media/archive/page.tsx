@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { archiveItems } from "@/lib/mock-data";
+import { fetchArchiveItems } from "@/lib/strapi";
+import { archiveItems as fallbackItems } from "@/lib/mock-data";
 import type { ContentType } from "@/lib/types";
 import ArchiveCard from "@/components/archive/ArchiveCard";
 import FilterBar from "@/components/archive/FilterBar";
@@ -30,6 +31,8 @@ export default async function TheArchivePage({
   searchParams,
 }: ArchivePageProps) {
   const params = await searchParams;
+
+  const archiveItems = await fetchArchiveItems().catch(() => fallbackItems);
 
   const activeType = params.type as ContentType | undefined;
   const activeCategory = params.category;

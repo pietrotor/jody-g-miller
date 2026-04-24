@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "press_logos",
+  "info": {
+    "singularName": "press-logo",
+    "pluralName": "press-logos",
+    "displayName": "Press Logo",
+    "description": "Media outlets where Jody has been featured"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

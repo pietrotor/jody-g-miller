@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_speaking_topics",
+  "info": {
+    "displayName": "Speaking Topic",
+    "description": "A conference/speaking topic with title and description"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

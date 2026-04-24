@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_timeline_events",
+  "info": {
+    "displayName": "Timeline Event",
+    "description": "A year + event entry for the BTG history timeline"
+  },
+  "options": {},
+  "attributes": {
+    "year": {
+      "type": "string",
+      "required": true
+    },
+    "event": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
