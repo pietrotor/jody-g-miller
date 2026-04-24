@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { RevealOnScroll } from "@/components/ui/motion";
+import YoutubeVideoPreview from "@/components/media/YoutubeVideoPreview";
+import { FEATURED_VIDEO } from "./constants";
 
 export default function IntroductionSection() {
   return (
@@ -33,17 +35,12 @@ export default function IntroductionSection() {
         {/* Right video — col-start-7 col-span-6 */}
         <div className="md:col-start-7 md:col-span-6">
           <RevealOnScroll delay={0.15}>
-            <div className="group relative flex aspect-video items-center justify-center overflow-hidden border border-accent-sage/10 bg-[#d6d3cc]">
-              <div className="flex flex-col items-center gap-3 px-6 text-center">
-                <svg className="h-10 w-10 text-[#8a877f]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
-                </svg>
-                <p className="font-sans text-xs font-light leading-relaxed text-[#6b6860]">
-                  Featured video — Jody speaking or interview clip<br />
-                  (embed or hosted video asset)
-                </p>
-              </div>
-            </div>
+            <YoutubeVideoPreview
+              youtubeId={FEATURED_VIDEO.youtubeId}
+              title={FEATURED_VIDEO.title}
+              posterUrl={FEATURED_VIDEO.posterUrl}
+              posterAlt={FEATURED_VIDEO.posterAlt}
+            />
 
             <div className="mt-6 flex items-center justify-between px-2">
               <span className="ui-label italic text-accent-sage/80">
