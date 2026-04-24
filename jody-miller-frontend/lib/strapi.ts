@@ -54,6 +54,43 @@ async function fetchStrapi<T>(
   return res.json() as Promise<T>;
 }
 
+/**
+ * Resilient wrapper around `fetchStrapi`.
+ *
+ * Returns the provided fallback when Strapi is unreachable or responds with
+ * an error, so SSG/ISR builds never crash (e.g. when Strapi is not running
+ * during `next build`). When Strapi is reachable, this behaves identically
+ * to `fetchStrapi`. A warning is written to stderr so silent fallbacks are
+ * still visible in build/CI logs.
+ *
+ * @param path Strapi REST endpoint path (without `/api` prefix).
+ * @param params Optional query params appended to the URL.
+ * @param fallback Value returned if the request fails.
+ * @returns The parsed response, or `fallback` on failure.
+ */
+async function fetchStrapiSafe<T>(
+  path: string,
+  params: Record<string, string> | undefined,
+  fallback: T,
+): Promise<T> {
+  try {
+    return await fetchStrapi<T>(path, params);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    process.stderr.write(
+      `[strapi] using fallback for ${path} (${message})\n`,
+    );
+    return fallback;
+  }
+}
+
+function emptyCollection<T>(): StrapiCollectionResponse<T> {
+  return {
+    data: [],
+    meta: { pagination: { total: 0 } },
+  };
+}
+
 function mediaUrl(media: StrapiMedia | null | undefined): string | undefined {
   if (!media?.url) return undefined;
   if (media.url.startsWith("http")) return media.url;
@@ -100,7 +137,7 @@ function mapArchiveItem(item: StrapiArchiveItem): ArchiveItem {
 }
 
 export async function fetchArchiveItems(): Promise<ArchiveItem[]> {
-  const res = await fetchStrapi<StrapiCollectionResponse<StrapiArchiveItem>>(
+  const res = await fetchStrapiSafe<StrapiCollectionResponse<StrapiArchiveItem>>(
     "/archive-items",
     {
       "populate[category]": "true",
@@ -108,12 +145,13 @@ export async function fetchArchiveItems(): Promise<ArchiveItem[]> {
       "pagination[pageSize]": "200",
       "sort[0]": "publishedDate:desc",
     },
+    emptyCollection<StrapiArchiveItem>(),
   );
   return res.data.map(mapArchiveItem);
 }
 
 export async function fetchFeaturedItems(): Promise<ArchiveItem[]> {
-  const res = await fetchStrapi<StrapiCollectionResponse<StrapiArchiveItem>>(
+  const res = await fetchStrapiSafe<StrapiCollectionResponse<StrapiArchiveItem>>(
     "/archive-items",
     {
       "filters[featured][$eq]": "true",
@@ -122,6 +160,7 @@ export async function fetchFeaturedItems(): Promise<ArchiveItem[]> {
       "sort[0]": "publishedDate:desc",
       "pagination[pageSize]": "10",
     },
+    emptyCollection<StrapiArchiveItem>(),
   );
   return res.data.map(mapArchiveItem);
 }
@@ -135,9 +174,10 @@ interface StrapiCategory {
 }
 
 export async function fetchCategories(): Promise<string[]> {
-  const res = await fetchStrapi<StrapiCollectionResponse<StrapiCategory>>(
+  const res = await fetchStrapiSafe<StrapiCollectionResponse<StrapiCategory>>(
     "/categories",
     { "sort[0]": "name:asc" },
+    emptyCollection<StrapiCategory>(),
   );
   return res.data.map((c) => c.name);
 }
@@ -156,13 +196,14 @@ interface StrapiSelectedPiecesPage {
 }
 
 export async function fetchSelectedPieces(): Promise<SelectedPiece[]> {
-  const res = await fetchStrapi<StrapiResponse<StrapiSelectedPiecesPage>>(
+  const res = await fetchStrapiSafe<StrapiResponse<StrapiSelectedPiecesPage>>(
     "/selected-pieces-page",
     {
       "populate[pieces][populate][image]": "true",
       "populate[pieces][populate][archiveItem]": "true",
       "populate[pieces][populate][archiveItem][populate][pdf]": "true",
     },
+    { data: { pieces: [] } },
   );
   return (res.data.pieces ?? [])
     .filter((p) => p.archiveItem)
@@ -194,9 +235,10 @@ interface StrapiPressLogo {
 }
 
 export async function fetchPressLogos(): Promise<PressLogo[]> {
-  const res = await fetchStrapi<StrapiCollectionResponse<StrapiPressLogo>>(
+  const res = await fetchStrapiSafe<StrapiCollectionResponse<StrapiPressLogo>>(
     "/press-logos",
     { "sort[0]": "order:asc", "pagination[pageSize]": "50" },
+    emptyCollection<StrapiPressLogo>(),
   );
   return res.data.map((l) => ({
     id: String(l.id),
@@ -217,12 +259,22 @@ interface StrapiBio {
 }
 
 export async function fetchBio(): Promise<Bio> {
-  const res = await fetchStrapi<StrapiResponse<StrapiBio>>(
+  const res = await fetchStrapiSafe<StrapiResponse<StrapiBio>>(
     "/bio",
     {
       "populate[photo]": "true",
       "populate[downloadablePdf]": "true",
       "populate[familyLinks]": "true",
+    },
+    {
+      data: {
+        headline: null,
+        biography: null,
+        photo: null,
+        downloadablePdf: null,
+        linkedinUrl: null,
+        familyLinks: [],
+      },
     },
   );
   const d = res.data;
@@ -250,14 +302,32 @@ interface StrapiBtgRaw {
   boardMembers: { name: string; role: string }[];
 }
 
+const EMPTY_BTG: StrapiResponse<StrapiBtgRaw> = {
+  data: {
+    missionIntro: null,
+    missionQuote: null,
+    missionClosing: null,
+    historyIntro: null,
+    timelineEvents: [],
+    milestones: [],
+    recognitions: [],
+    investors: [],
+    boardMembers: [],
+  },
+};
+
 export async function fetchBtgMission(): Promise<BtgMission> {
-  const res = await fetchStrapi<StrapiResponse<StrapiBtgRaw>>("/btg", {
-    "populate[timelineEvents]": "false",
-    "populate[milestones]": "false",
-    "populate[recognitions]": "false",
-    "populate[investors]": "false",
-    "populate[boardMembers]": "false",
-  });
+  const res = await fetchStrapiSafe<StrapiResponse<StrapiBtgRaw>>(
+    "/btg",
+    {
+      "populate[timelineEvents]": "false",
+      "populate[milestones]": "false",
+      "populate[recognitions]": "false",
+      "populate[investors]": "false",
+      "populate[boardMembers]": "false",
+    },
+    EMPTY_BTG,
+  );
   const d = res.data;
   return {
     missionIntro: d.missionIntro ?? "",
@@ -267,9 +337,11 @@ export async function fetchBtgMission(): Promise<BtgMission> {
 }
 
 export async function fetchBtgHistory(): Promise<BtgHistory> {
-  const res = await fetchStrapi<StrapiResponse<StrapiBtgRaw>>("/btg", {
-    "populate[timelineEvents]": "true",
-  });
+  const res = await fetchStrapiSafe<StrapiResponse<StrapiBtgRaw>>(
+    "/btg",
+    { "populate[timelineEvents]": "true" },
+    EMPTY_BTG,
+  );
   const d = res.data;
   return {
     historyIntro: d.historyIntro ?? "",
@@ -278,10 +350,14 @@ export async function fetchBtgHistory(): Promise<BtgHistory> {
 }
 
 export async function fetchBtgAccomplishments(): Promise<BtgAccomplishments> {
-  const res = await fetchStrapi<StrapiResponse<StrapiBtgRaw>>("/btg", {
-    "populate[milestones]": "true",
-    "populate[recognitions]": "true",
-  });
+  const res = await fetchStrapiSafe<StrapiResponse<StrapiBtgRaw>>(
+    "/btg",
+    {
+      "populate[milestones]": "true",
+      "populate[recognitions]": "true",
+    },
+    EMPTY_BTG,
+  );
   const d = res.data;
   return {
     milestones: d.milestones ?? [],
@@ -290,10 +366,14 @@ export async function fetchBtgAccomplishments(): Promise<BtgAccomplishments> {
 }
 
 export async function fetchBtgInvestors(): Promise<BtgInvestors> {
-  const res = await fetchStrapi<StrapiResponse<StrapiBtgRaw>>("/btg", {
-    "populate[investors]": "true",
-    "populate[boardMembers]": "true",
-  });
+  const res = await fetchStrapiSafe<StrapiResponse<StrapiBtgRaw>>(
+    "/btg",
+    {
+      "populate[investors]": "true",
+      "populate[boardMembers]": "true",
+    },
+    EMPTY_BTG,
+  );
   const d = res.data;
   return {
     investors: d.investors ?? [],
@@ -310,10 +390,14 @@ interface StrapiSpeakingRaw {
 }
 
 export async function fetchSpeaking(): Promise<Speaking> {
-  const res = await fetchStrapi<StrapiResponse<StrapiSpeakingRaw>>("/speaking", {
-    "populate[topics]": "true",
-    "populate[advisoryAreas]": "true",
-  });
+  const res = await fetchStrapiSafe<StrapiResponse<StrapiSpeakingRaw>>(
+    "/speaking",
+    {
+      "populate[topics]": "true",
+      "populate[advisoryAreas]": "true",
+    },
+    { data: { topics: [], advisoryAreas: [], contactIntro: null } },
+  );
   const d = res.data;
   return {
     topics: d.topics ?? [],
@@ -333,7 +417,19 @@ interface StrapiTheDetails {
 }
 
 export async function fetchTheDetails(): Promise<TheDetails> {
-  const res = await fetchStrapi<StrapiResponse<StrapiTheDetails>>("/the-details");
+  const res = await fetchStrapiSafe<StrapiResponse<StrapiTheDetails>>(
+    "/the-details",
+    undefined,
+    {
+      data: {
+        entrepreneurial: null,
+        executive: null,
+        boards: null,
+        government: null,
+        nonprofit: null,
+      },
+    },
+  );
   const d = res.data;
   return {
     entrepreneurial: d.entrepreneurial ?? "",
