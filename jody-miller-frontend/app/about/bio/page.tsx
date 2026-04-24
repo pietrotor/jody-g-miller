@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { fetchBio } from "@/lib/strapi";
+import { BIO_STATS, BIO_EXPERIENCE, BIO_EDUCATION } from "@/lib/bio-data";
 import {
   FadeUp,
   AnimatedLine,
@@ -15,69 +16,6 @@ export const metadata: Metadata = {
   description:
     "Jody Greenstone Miller — Co-Founder & former CEO of Business Talent Group, thought leader on the future of work and entrepreneurship.",
 };
-
-const STATS = [
-  { end: 18,  start: 0,   suffix: "+", label: "Years at BTG",            duration: 2.2 },
-  { end: 200, start: 120, suffix: "+", label: "Published Articles",       duration: 2.5 },
-  { end: 50,  start: 0,   suffix: "+", label: "Board & Advisory Roles",   duration: 2.0 },
-];
-
-const EXPERIENCE = [
-  {
-    id: "btg",
-    org: "Business Talent Group (BTG)",
-    role: "Co-Founder & CEO",
-    period: "2007 — 2022",
-    type: "Entrepreneurial",
-    description:
-      "Built the leading marketplace for high-end, on-demand executive talent. Under Jody's leadership, BTG completed thousands of engagements for Fortune 500 companies, private equity firms, and high-growth startups — and pioneered the concept of the independent executive.",
-  },
-  {
-    id: "americast",
-    org: "Americast",
-    role: "Acting President & COO",
-    period: "2001 — 2007",
-    type: "Executive",
-    description:
-      "Led day-to-day operations of a digital video venture formed by major U.S. media companies, managing both the strategic and operational dimensions of the business.",
-  },
-  {
-    id: "maverick",
-    org: "Maverick Records",
-    role: "Executive Vice President",
-    period: "1999 — 2001",
-    type: "Executive",
-    description:
-      "Senior executive at the artist-founded record label, working across business development, strategy, and operations during a transformative period in the music industry.",
-  },
-  {
-    id: "whitehouse",
-    org: "The White House",
-    role: "Chief of Staff, Office of the Vice President",
-    period: "1993 — 1997",
-    type: "Government",
-    description:
-      "Served during the Clinton Administration, working directly with senior White House leadership on domestic and foreign policy initiatives. A formative experience in how consequential decisions are made under pressure.",
-  },
-  {
-    id: "urbaninstitute",
-    org: "The Urban Institute",
-    role: "Board Member",
-    period: "Current",
-    type: "Non-Profit & Civic",
-    description:
-      "Providing strategic guidance to one of the country's leading economic and social policy research organizations, focused on equity, housing, and workforce development.",
-  },
-  {
-    id: "hrw",
-    org: "Human Rights Watch",
-    role: "Advisory Contributor",
-    period: "Current",
-    type: "Non-Profit & Civic",
-    description:
-      "Active contributor to one of the world's leading independent organizations dedicated to defending and protecting human rights.",
-  },
-];
 
 export default async function BioPage() {
   const bio = await fetchBio();
@@ -139,25 +77,15 @@ export default async function BioPage() {
 
               {/* Links */}
               <div className="space-y-3">
-                {bio.downloadablePdfUrl ? (
-                  <a
-                    href={bio.downloadablePdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center justify-between border-b border-border/20 pb-3 font-sans text-xs font-light text-accent transition-opacity hover:opacity-60"
-                  >
-                    <span>Download Press Bio (PDF)</span>
-                    <span>→</span>
-                  </a>
-                ) : (
-                  <a
-                    href="#"
-                    className="group flex items-center justify-between border-b border-border/20 pb-3 font-sans text-xs font-light text-accent transition-opacity hover:opacity-60"
-                  >
-                    <span>Download Press Bio (PDF)</span>
-                    <span>→</span>
-                  </a>
-                )}
+                <a
+                  href={bio.downloadablePdfUrl ?? "/api/press-bio"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between border-b border-border/20 pb-3 font-sans text-xs font-light text-accent transition-opacity hover:opacity-60"
+                >
+                  <span>Download Press Bio (PDF)</span>
+                  <span>→</span>
+                </a>
                 {bio.linkedinUrl && (
                   <a
                     href={bio.linkedinUrl}
@@ -226,7 +154,7 @@ export default async function BioPage() {
       <RevealOnScroll>
         <div className="border-y border-accent-sage/10 bg-surface-container">
           <div className="mx-auto grid max-w-[1440px] grid-cols-3 px-6 md:px-12">
-            {STATS.map((stat, i) => (
+            {BIO_STATS.map((stat, i) => (
               <div
                 key={stat.label}
                 className={`py-10 text-center ${i > 0 ? "border-l border-accent-sage/10" : ""}`}
@@ -262,7 +190,7 @@ export default async function BioPage() {
         </RevealOnScroll>
 
         <ScrollStaggerList className="divide-y divide-border/20">
-          {EXPERIENCE.map((item) => (
+          {BIO_EXPERIENCE.map((item) => (
             <ScrollStaggerItem key={item.id}>
               <div className="grid grid-cols-1 gap-4 py-10 md:grid-cols-[1fr_2fr] md:gap-12">
                 <div>
@@ -293,8 +221,11 @@ export default async function BioPage() {
               <h3 className="font-serif text-xl text-heading">Education</h3>
             </div>
             <div className="space-y-1 font-sans text-base font-light text-body">
-              <p>B.A., Brown University</p>
-              <p>J.D., Northwestern University School of Law</p>
+              {BIO_EDUCATION.map((edu) => (
+                <p key={edu.institution}>
+                  {edu.degree}, {edu.institution}
+                </p>
+              ))}
             </div>
           </div>
         </RevealOnScroll>

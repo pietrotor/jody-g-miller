@@ -177,10 +177,10 @@ export default function Header() {
             {/* Connect CTA */}
             <Link
               href="/contact"
-              className={`ui-label px-6 py-2.5 transition-all duration-200 ${
+              className={`inline-flex items-center px-6 py-2.5 font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-white shadow-atmospheric transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
                 pathname === "/contact"
-                  ? "bg-heading text-background"
-                  : "border border-heading/30 text-heading hover:border-heading hover:bg-heading hover:text-background"
+                  ? "bg-accent-dark"
+                  : "bg-accent hover:bg-accent-dark"
               }`}
             >
               Connect
@@ -289,7 +289,7 @@ export default function Header() {
           <Link
             href="/contact"
             onClick={closeAll}
-            className="mt-8 inline-block bg-heading px-8 py-3 ui-label text-background"
+            className="mt-8 inline-flex items-center bg-accent px-8 py-3.5 font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-white shadow-atmospheric transition-colors duration-200 hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             Connect
           </Link>

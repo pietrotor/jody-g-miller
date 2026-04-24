@@ -11,6 +11,7 @@
   --color-muted-foreground: var(--muted-text);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
   --color-accent-sage: var(--accent-sage);
   --color-surface: var(--surface);
   --color-surface-low: var(--surface-low);
@@ -30,6 +31,7 @@
   --border: #d1cfc9; /* outline — only used at low opacity (10–20%) */
 
   --accent: #a66d5b; /* terracotta — CTAs, active states, emphasis */
+  --accent-dark: #8c5948; /* terracotta darker — CTA hover/active */
   --accent-sage: #7c8375; /* sage — labels, UI, subtle accents */
 
   --dark-bg: #1a1a17; /* primary ink as dark bg */

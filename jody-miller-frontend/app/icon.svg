@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Jody Greenstone Miller">
+  <rect width="64" height="64" fill="#f4f1ea"/>
+  <text
+    x="32"
+    y="48"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="54"
+    font-style="italic"
+    font-weight="500"
+    letter-spacing="-0.02em"
+  ><tspan fill="#1a1a17">J</tspan><tspan fill="#a66d5b" dx="-4">.</tspan></text>
+</svg>

@@ -41,13 +41,6 @@ export default function IntroductionSection() {
               posterUrl={FEATURED_VIDEO.posterUrl}
               posterAlt={FEATURED_VIDEO.posterAlt}
             />
-
-            <div className="mt-6 flex items-center justify-between px-2">
-              <span className="ui-label italic text-accent-sage/80">
-                Film No. 04 — The Future of Human Capital
-              </span>
-              <span className="ui-label text-accent-sage/80">04:22</span>
-            </div>
           </RevealOnScroll>
         </div>
       </div>

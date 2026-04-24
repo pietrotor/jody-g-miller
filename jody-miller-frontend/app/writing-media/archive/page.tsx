@@ -110,7 +110,9 @@ export default async function TheArchivePage({
             No items found.
           </p>
         ) : (
-          <ScrollStaggerList>
+          <ScrollStaggerList
+            key={`${activeType ?? "all"}-${activeCategory ?? "all"}-${activeYear ?? "all"}`}
+          >
             {sorted.map((item) => (
               <ScrollStaggerItem key={item.id}>
                 <ArchiveCard item={item} />
