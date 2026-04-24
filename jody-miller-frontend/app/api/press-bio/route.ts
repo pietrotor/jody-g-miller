@@ -1,7 +1,6 @@
 import path from "node:path";
 import { existsSync, readFileSync } from "node:fs";
 import { renderToBuffer } from "@react-pdf/renderer";
-import React from "react";
 import { fetchBio, fetchSpeaking } from "@/lib/strapi";
 import PressBioDocument from "@/components/pdf/PressBio";
 import { buildPressBioData } from "@/components/pdf/PressBio/utils/buildPressBioData";
@@ -38,9 +37,7 @@ export async function GET(): Promise<Response> {
     photoSrc: loadPortrait(),
   });
 
-  const buffer = await renderToBuffer(
-    React.createElement(PressBioDocument, { data }),
-  );
+  const buffer = await renderToBuffer(PressBioDocument({ data }));
 
   return new Response(new Uint8Array(buffer), {
     status: 200,

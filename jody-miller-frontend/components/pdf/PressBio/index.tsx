@@ -1,5 +1,5 @@
-import React from "react";
-import { Document } from "@react-pdf/renderer";
+import type { ReactElement } from "react";
+import { Document, type DocumentProps } from "@react-pdf/renderer";
 import { registerPressBioFonts } from "./utils/registerFonts";
 import { getCoverShortBio } from "./utils/buildPressBioData";
 import CoverPage from "./components/CoverPage";
@@ -12,7 +12,7 @@ registerPressBioFonts();
 
 export default function PressBioDocument({
   data,
-}: IPressBioDocumentProps): React.ReactElement {
+}: IPressBioDocumentProps): ReactElement<DocumentProps> {
   const websiteLabel = data.contact.website;
   const shortBio = getCoverShortBio(data.biographyParagraphs);
 
