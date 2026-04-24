@@ -174,16 +174,26 @@ export default function Header() {
             {/* Divider */}
             <div className="mx-4 h-4 w-px bg-border/40" />
 
-            {/* Connect CTA */}
+            {/* Connect CTA — editorial italic serif with sliding arrow */}
             <Link
               href="/contact"
-              className={`inline-flex items-center px-6 py-2.5 font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-white shadow-atmospheric transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
-                pathname === "/contact"
-                  ? "bg-accent-dark"
-                  : "bg-accent hover:bg-accent-dark"
-              }`}
+              className="group ml-1 inline-flex items-baseline gap-2 px-2 py-1"
             >
-              Connect
+              <span
+                className={`font-serif text-lg italic transition-colors duration-200 ${
+                  pathname === "/contact"
+                    ? "text-accent-dark"
+                    : "text-accent group-hover:text-accent-dark"
+                }`}
+              >
+                Connect
+              </span>
+              <span
+                aria-hidden
+                className="font-serif text-lg italic text-accent transition-transform duration-300 ease-out group-hover:translate-x-1"
+              >
+                &rarr;
+              </span>
             </Link>
           </nav>
 
@@ -289,9 +299,17 @@ export default function Header() {
           <Link
             href="/contact"
             onClick={closeAll}
-            className="mt-8 inline-flex items-center bg-accent px-8 py-3.5 font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-white shadow-atmospheric transition-colors duration-200 hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="group mt-10 inline-flex items-baseline gap-3"
           >
-            Connect
+            <span className="font-serif text-3xl italic text-accent transition-colors duration-200 group-hover:text-accent-dark">
+              Connect
+            </span>
+            <span
+              aria-hidden
+              className="font-serif text-3xl italic text-accent transition-transform duration-300 ease-out group-hover:translate-x-1"
+            >
+              &rarr;
+            </span>
           </Link>
         </div>
       </div>
